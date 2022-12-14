@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Video Anomaly Detection Using Human Pose">
+  <meta name="keywords" content="Video Anomaly Detection, VAD, NF, Normalizing Flows">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STG-NF: Video Anomaly Detection Using Lightweight Pose Normalizing Flows</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="publication-author-block">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Normalizing Flows for Human Pose Anomaly Detection </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://scholar.google.co.il/citations?user=GgFuT_QAAAAJ&hl=iw&oi=sra" target="_blank">Or Hirschorn</a>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=hpItE1QAAAAJ&hl=iw" target="_blank">Shai Avidan</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Tel Aviv University, Israel</span>
+            <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2211.10946" target="_blank"
+                  class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+
+              <!-- PDF Link. -->
+                <!--
+              <span class="link-block">
+                <a href="static/source/MotionCLIP.pdf" target="_blank"
+                  class="external-link button is-normal is-rounded">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              -->
+              <!-- </span> -->
+              <!-- Colab Link. -->
+              <span class="link-block">
+                <a href="https://github.com/orhir/STG-NF" target="_blank"
+                class="external-link button is-normal is-rounded">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+              </a>
+
+              </span>
+              <!-- </span> -->
+              <!-- Colab Link. -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section class="hero is-small">
+  <!~~ <div class="hero-body"> ~~>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!~~ <div id="results-carousel" class="carousel results-carousel"> ~~>
+      <div class="container">
+      <div class="item">
+      <div class="column is-centered has-text-centered">
+        <img src="static/figures/teaser.png" alt="MotionCLIP"/>
+      </div>
+
+    </div>
+  </div>
+ <!~~  </div> ~~>
+  </div>
+  </div>
+ <!~~  </div> ~~>
+</section>
+ -->
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+          <!--
+        <div class="item">
+          <p style="margin-bottom: 30px">
+
+        <iframe width="720" height="405" src="https://www.youtube.com/embed/rVkIDj5wgjs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </p>
+        </div>
+        -->
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+              Video anomaly detection is an ill-posed problem because it relies on many parameters such as appearance, pose, camera angle, background, and more. We distill the problem to anomaly detection of human pose, thus reducing the risk of nuisance parameters such as appearance affecting the result. Focusing on pose alone also has the side benefit of reducing bias against distinct minority groups.
+<br>
+              Our model works directly on human pose graph sequences and is exceptionally lightweight (~1K parameters), capable of running on any machine able to run the pose estimation with negligible additional resources. We leverage the highly compact pose representation in a normalizing flows framework, which we extend to tackle the unique characteristics of spatio-temporal pose data and show its advantages in this use case.
+<br>
+              Our algorithm uses Normalizing Flow to learn a bijective mapping between the pose data distribution and a Gaussian distribution, using spatio-temporal graph convolution blocks. The algorithm is quite general and can handle training data of only normal examples, as well as a supervised dataset that consists of labeled normal and abnormal examples.
+We report state-of-the-art results on two anomaly detection benchmarks - the unsupervised ShanghaiTech dataset and the recent supervised UBnormal dataset.
+
+                    </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <div class="column is-centered has-text-centered">
+        <img src="static/images/arch.svg" alt="Framwork Overview"/>
+      </div>
+
+  </div>
+</div>
+</div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+<!--         <h2 class="title is-3">How does it work?</h2> -->
+        <div class="content has-text-justified">
+          <p>
+            Given a sequence of video frames, we use pose estimation to extract the keypoints of every person in each frame
+and use a pose tracker to track the skeletons across the
+frames. Eventually, each person in a clip is represented as a
+temporal pose graph. Our network maps the training samples into a Gaussian-distributed latent space and calculates
+the probability of a human pose sequence occurring based on the training data.
+              <br>
+We demonstrate our algorithm in two settings. The first
+is the widely used ShanghaiTech Campus dataset. In
+this setting, the training data consists of only normal video
+samples, and the test data consists of both normal and abnormal videos.
+              The second setting is supervised anomaly
+detection, using the recent synthetic UBnormal dataset,
+which consists of both normal and abnormal training data.
+For this setting, we use our suggested normalizing flows
+model with a Gaussian Mixture Model prior. This forces
+the network to assign low probabilities to known abnormal
+samples.
+                            <br>
+
+Extensive experiments show that our model outperforms
+the previous pose-based and appearance-based state-of-theart methods for both settings. In addition, the ablation study
+shows our method is robust to noise and can generalize over
+different datasets. We show that while training on synthetic
+data and evaluating on real data, our model’s performance
+only slightly degrades, although there is a considerable difference in appearance
+
+</p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+</div>
+</section>
+
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">ShanghaiTech Examples</h2>
+          <p>
+              The ShanghaiTech Campus data set
+is one of the largest data sets for video anomaly detection, containing videos from 13 cameras around the ShanghaiTech University campus. It consists of 330 training
+videos with only normal events and 107 test videos with
+both normal and abnormal events, annotated at both frame
+and pixel levels. A few examples of human anomalies in
+the dataset are running, fighting, and riding bikes. The
+videos contain various people in each scene, with challenging lighting and camera angles.
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      <div class="column is-centered has-text-centered">
+                <video poster="" id="stc1" autoplay controls muted loop height="100%">
+          <source src="static/videos/ShanghaiTech/1_63.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-centered has-text-centered">
+                <video poster="" id="stc2" autoplay controls muted loop height="100%">
+          <source src="static/videos/ShanghaiTech/3_61.mp4"
+          type="video/mp4">
+      </div>
+      <div class="column is-centered has-text-centered">
+                <video poster="" id="stc3" autoplay controls muted loop height="100%">
+          <source src="static/videos/ShanghaiTech/5_23.mp4"
+          type="video/mp4">
+      </div>
+        <div class="column is-centered has-text-centered">
+                <video poster="" id="stc4" autoplay controls muted loop height="100%">
+          <source src="static/videos/ShanghaiTech/7_6.mp4"
+          type="video/mp4">
+      </div>
+        <div class="column is-centered has-text-centered">
+                <video poster="" id="stc5" autoplay controls muted loop height="100%">
+          <source src="static/videos/ShanghaiTech/11_176.mp4"
+          type="video/mp4">
+      </div>
+  </div>
+</div>
+</div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+</div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">UBnormal Examples</h2>
+          <p>
+              The UBnormal data set is a new synthetic
+supervised open-set benchmark containing both normal and
+abnormal actions in the training videos. It contains 268
+training videos, 64 validation videos, and 211 test videos
+and is also annotated at both frame and pixel levels.
+Some scenes in the dataset include foggy and night
+scenes. The pose detector overcame these difficult conditions and accurately estimated the poses in such scenes.
+This provides additional evidence for the advantages of
+working with a non-appearance-based model, which can focus on learning actions and disregard the illuminations or
+background of a scene.
+
+             </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      <div class="column is-centered has-text-centered">
+                <video poster="" id="ub1" autoplay controls muted loop height="100%">
+          <source src="static/videos/UBnormal/24_abnormal__4_score.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-centered has-text-centered">
+                <video poster="" id="ub2" autoplay controls muted loop height="100%">
+          <source src="static/videos/UBnormal/17_abnormal__4_score.mp4"
+          type="video/mp4">
+      </div>
+      <div class="column is-centered has-text-centered">
+                <video poster="" id="ub3" autoplay controls muted loop height="100%">
+          <source src="static/videos/UBnormal/16_abnormal__3_score.mp4"
+          type="video/mp4">
+      </div>
+        <div class="column is-centered has-text-centered">
+                <video poster="" id="ub4" autoplay controls muted loop height="100%">
+          <source src="static/videos/UBnormal/12_abnormal__3_score.mp4"
+          type="video/mp4">
+      </div>
+        <div class="column is-centered has-text-centered">
+                <video poster="" id="ub5" autoplay controls muted loop height="100%">
+          <source src="static/videos/UBnormal/11_abnormal__2_score.mp4"
+          type="video/mp4">
+      </div>
+  </div>
+</div>
+</div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+@article{hirschorn2022human,
+  title = {Normalizing Flows for Human Pose Anomaly Detection},
+  author = {Hirschorn, Or and Avidan, Shai},
+  journal={arXiv preprint arXiv:2211.10946},
+  year = {2022},
+}
+      </code></pre>
+    </div>
+</section>
+
+
+
+
+<footer class="footer">
+ <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+      href="https://arxiv.org/pdf/2211.10946.pdf">
+      <i class="fas fa-file-pdf"></i>
+    </a>
+    <a class="icon-link" href="https://github.com/orhir/stg-nf" class="external-link" disabled>
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          This website is licensed under a <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+      <p>
+        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+</footer>
+
+
+  <script type="text/javascript">
+    var sc_project=12351448;
+    var sc_invisible=1;
+    var sc_security="c676de4f";
+  </script>
+  <script type="text/javascript"
+  src="https://www.statcounter.com/counter/counter.js"
+  async></script>
+  <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img
+    class="statcounter"
+    src="https://c.statcounter.com/12351448/0/c676de4f/1/"
+    alt="Web Analytics"></a></div></noscript>
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
